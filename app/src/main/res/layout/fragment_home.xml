@@ -155,7 +155,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_best_tour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
+                android:paddingHorizontal="11dp"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
