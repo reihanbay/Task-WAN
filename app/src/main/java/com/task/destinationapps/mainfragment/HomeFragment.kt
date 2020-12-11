@@ -1,11 +1,15 @@
 package com.task.destinationapps.mainfragment
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.ActionBar
+import android.view.*
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.MenuItemCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,31 +18,33 @@ import com.task.destinationapps.R
 import com.task.destinationapps.adapter.BestTourAdapter
 import com.task.destinationapps.adapter.TopTourAdapter
 import com.task.destinationapps.data.TourData
+import com.task.destinationapps.data.TourData.Destination.name
 import com.task.destinationapps.databinding.FragmentHomeBinding
 import com.task.destinationapps.model.TourModel
-import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment() {
     private lateinit var binding : FragmentHomeBinding
+    private lateinit var search_menu : Menu
+    private lateinit var item_search : MenuItem
+    private lateinit var searchToolbar : Toolbar
+    private lateinit var toolbar: Toolbar
     private var list : ArrayList<TourModel> = arrayListOf()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        val toolbar = binding.toolbarMain
+        toolbar = binding.toolbarMain
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        val actionBar = (activity as AppCompatActivity).supportActionBar
-        actionBar?.setTitle("Destination")
+        (activity as AppCompatActivity).supportActionBar
 
+        binding.btnSearch.setOnClickListener {
+            Toast.makeText(activity, "dcsdf", Toast.LENGTH_SHORT).show()
+        }
         list.addAll(TourData.Destination.listData)
         binding.rvBestTour.isNestedScrollingEnabled = false
-
         setRecycler()
         return binding.root
     }
@@ -48,7 +54,7 @@ class HomeFragment : Fragment() {
         binding.rvTopTour.adapter = adapter
         binding.rvTopTour.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
 
-        adapter.setOnItemClick(object : TopTourAdapter.onItemClick{
+        adapter.setOnItemClick(object : TopTourAdapter.onItemClick {
             override fun onItemClicked(data: TourModel) {
 //                val intent = Intent(activity, DetailActivity::class.java)
 //                val data = TourModel(data.pict, data.name, data.detail, data.origin)
