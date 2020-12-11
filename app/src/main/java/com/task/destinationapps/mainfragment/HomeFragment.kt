@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,9 +31,12 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        val toolbar = binding.toolbarMain
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        val actionBar = (activity as AppCompatActivity).supportActionBar
+        actionBar?.setTitle("Destination")
 
         list.addAll(TourData.Destination.listData)
-
         binding.rvBestTour.isNestedScrollingEnabled = false
 
         setRecycler()
